@@ -1,0 +1,44 @@
+tutorial link
+http://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
+
+to get a template from github, run
+  
+  $ cookiecutter https://github.com/pydanny/cookiecutter-django
+
+install the requirements in requirements.txt (if not installed)
+
+  $ pip install django-environ
+  $ pip install --upgrade django-crispy-forms
+  $ sudo pip install django-allauth
+  $ sudo pip install django-debug-toolbar
+  $ sudo pip install django-extentions 
+
+####MOST IMP
+create a data base with psql, a user (role) and paswd. and export the environment variable DATABASE_URL
+https://blog.swapps.co/how-to-create-a-django-application-using-cookiecutter-and-django-1-8/#.V-PBy3V96P8
+
+open psql shell by typing 
+
+$ sudo -i -u postgres
+$ psql
+
+then run the following commands after replacing the database name and user (role) name
+
+-- Create the database project
+CREATE DATABASE db_name;
+ 
+-- Create user for database
+CREATE ROLE example_user WITH LOGIN ENCRYPTED PASSWORD 'password'CREATEDB;
+-- Edit September 25/2015 : 
+-- For security Only set CREATEDB permission
+-- Which is required for the Django tests
+ 
+-- Grant privileges to the user to access database
+GRANT ALL PRIVILEGES ON DATABASE example 
+TO example_user;
+
+
+finally update the DATABASE_URL variable
+$ export DATABASE_URL=postgres://example_user:password@localhost:5432/example
+
+
